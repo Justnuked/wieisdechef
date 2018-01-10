@@ -7,9 +7,9 @@ var favicon = require('serve-favicon');
 
 var app = express();
 
-cont port = process.env.PORT || 3000;
+const port = process.env.PORT || 3000;
 
-app.use(favicon(__dirname + '/images/favicon.ico')):
+app.use(favicon(__dirname + '/images/favicon.ico'));
 app.use(bodyParser.urlencoded({'extended': 'true'}));
 app.use(bodyParser.json());
 app.use(bodyParser.json({type:'application/vnd.api+json'}));
@@ -25,13 +25,17 @@ app.use('/api/routes', routes);
 
 app.use('*', function(req, res, next){
 	res.status(400);
-	res.json((Error: 'No matching endpoint'});
+	res.json({Error: 'No matching endpoint'});
 	res.end();
 });
 
 app.use('*', function(err, req, res, next){
 	console.log('Error: ' + err);
 	res.status(404).json({error: err}).end();
+});
+
+app.listen(port, function() {
+	console.log('Server listens on port ' + port);
 });
 
 module.exports = app;
