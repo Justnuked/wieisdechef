@@ -7,7 +7,7 @@ var favicon = require('serve-favicon');
 
 var app = express();
 
-cont port = process.env.PORT || 3000;
+const port = process.env.PORT || 3000;
 
 app.use(favicon(__dirname + '/images/favicon.ico')):
 app.use(bodyParser.urlencoded({'extended': 'true'}));
