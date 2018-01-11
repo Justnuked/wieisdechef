@@ -3,6 +3,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var logger = require('morgan');
 var routes = require('./api/routes');
+var account = require('./api/account');
 var favicon = require('serve-favicon');
 
 var app = express();
@@ -21,7 +22,8 @@ app.use('*', function(req, res, next){
 	next();
 });
 
-app.use('/api/routes', routes);
+app.use('/api/session', routes);
+app.use('/api', account);
 
 app.use('*', function(req, res, next){
 	res.status(400);

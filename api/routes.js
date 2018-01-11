@@ -1,21 +1,28 @@
 var express = require('express');
 var routes = express.Router();
-//var mysql = require('mysql');
+var dbController = require('../controllers/db.controller');
 
-//var connection = mysql.createConnection({
-//	host : '',
-//	user : '',
-//	password : '',
-//	database : ''
-//});
+//test routes
+routes.get('/test', dbController.test);
+routes.get('/dbtest', dbController.dbTest);
 
-//connection.connect();
+//Joining a meal
+routes.get('/joinmeal', dbController.joinMeal);
 
-//routes
+//Being a chef and hosting a meal
+routes.get('/hostmeal', dbController.hostMeal);
 
-routes.get('/test', function(req, res) {
-	res.status(200);
-	res.json({'Test' : 'test'});
+//Leaving a meal
+routes.get('/leavemeal', dbController.leaveMeal);
+
+//An overview on all data
+routes.get('overview', dbController.showOverview);
+
+//An overview of all the meals
+routes.get('allmeals', dbController.showAllMeals);
+
+routes.get('*', function(req, res, next) {
+	res.status(404).json({Error: 'Endpoint nonexistent'}).end();
 });
 
 module.exports = routes;
