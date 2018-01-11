@@ -3,8 +3,17 @@ var db = require('../config/db');
 module.exports = {
 	
 	joinMeal(req, res, next) {
-		res.status(501);
-		res.json({Error: 'not implicated yet'});
+		var studentid = req.body.studentid;
+		var dinnerid = req.body.dinnerid;
+		var querystring = 'INSERT INTO PARTICIPANTS(DINNERID, STUDENTID) VALUES ('+dinnerid+', '+studentid+')';
+		db.query(querystring, function(error, results, field) {
+			if(error) {
+				next(error);
+			} else {
+			res.status(200);
+			res.end();
+			}
+		});
 	},
 	
 	hostMeal(req, res, next) {
