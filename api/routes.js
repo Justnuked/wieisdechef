@@ -7,13 +7,13 @@ routes.get('/test', dbController.test);
 routes.get('/dbtest', dbController.dbTest);
 
 //Joining a meal
-routes.get('/joinmeal', dbController.joinMeal);
+routes.post('/joinmeal', dbController.joinMeal);
 
 //Being a chef and hosting a meal
 routes.get('/hostmeal', dbController.hostMeal);
 
 //Leaving a meal
-routes.get('/leavemeal', dbController.leaveMeal);
+routes.post('/leavemeal', dbController.leaveMeal);
 
 //An overview on all data
 routes.get('overview', dbController.showOverview);
