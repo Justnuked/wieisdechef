@@ -22,8 +22,17 @@ module.exports = {
 	},
 	
 	leaveMeal(req, res, next) {
-		res.status(501);
-		res.json({Error: 'not implicated yet'});
+		var studentid = req.body.studentid;
+		var dinnerid = req.body.dinnerid;
+		var querystring = 'DELETE FROM PARTICIPANTS WHERE studentid = ' +studentid+ ' AND dinnerid = ' +dinnerid+';';
+		db.query(querystring, function(error, results, field) {
+			if(error) {
+				next(error);
+			} else {
+			res.status(200);
+			res.end();
+			}
+		});
 	},
 	
 	showOverview(req, res, next) {
