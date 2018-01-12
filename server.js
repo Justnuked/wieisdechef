@@ -12,7 +12,7 @@ const port = process.env.PORT || 3000;
 
 app.use(favicon(__dirname + '/images/favicon.ico'));
 app.use(bodyParser.urlencoded({'extended': 'true'}));
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '100mb'}));
 app.use(bodyParser.json({type:'application/vnd.api+json'}));
 app.use(logger('dev'));
 
