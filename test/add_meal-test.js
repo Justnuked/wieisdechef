@@ -5,7 +5,7 @@ var chould = chai.should();
 
 chai.use(chaiHttp);
 
-describe('hostmeal API functionalities', function() {
+describe('addmeal API functionalities', function() {
 	
 	before(function(done){
 		let login = {
@@ -26,15 +26,15 @@ describe('hostmeal API functionalities', function() {
   
 	});
 	
-	it('should not post to hostmeal without a chefID', function(done) {
-		let dinner = {
-			chefID: null,
-			mealID: 1,
-			date: "2018-02-21 18:00:00"
+	it('should not post to addmeal without a meal name', function(done) {
+		let meal = {
+			name: null,
+			price: 1,
+			maxPeople: 6
 		}
 		chai.request(server)
-			.post('/api/session/hostmeal')
-			.send(dinner)
+			.post('/api/session/addmeal')
+			.send(meal)
 			.end(function(error, result) {
 				result.should.have.status(404);
 				result.should.be.json;
@@ -44,15 +44,15 @@ describe('hostmeal API functionalities', function() {
 			});
 	});
 	
-	it('should not post to hostmeal without a mealID', function(done) {
-		let dinner = {
-			chefID: 1,
-			mealID: null,
-			date: "2018-02-21 18:00:00"
+	it('should not post to addmeal without a meal price', function(done) {
+		let meal = {
+			name: 'pizza',
+			price: null,
+			maxPeople: 6
 		}
 		chai.request(server)
-			.post('/api/session/hostmeal')
-			.send(dinner)
+			.post('/api/session/addmeal')
+			.send(meal)
 			.end(function(error, result) {
 				result.should.have.status(404);
 				result.should.be.json;
@@ -62,15 +62,15 @@ describe('hostmeal API functionalities', function() {
 			});
 	});
 	
-	it('should not post to hostmeal without a date', function(done) {
-		let dinner = {
-			chefID: 1,
-			mealID: 1,
-			date: null
+	it('should not post to addmeal without max people filled in', function(done) {
+		let meal = {
+			name: 'pizza',
+			price: 6,
+			maxPeople: null
 		}
 		chai.request(server)
-			.post('/api/session/hostmeal')
-			.send(dinner)
+			.post('/api/session/addmeal')
+			.send(meal)
 			.end(function(error, result) {
 				result.should.have.status(404);
 				result.should.be.json;
