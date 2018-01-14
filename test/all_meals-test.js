@@ -29,10 +29,11 @@ describe('allmeals API functionalities', function() {
 	it('should successfully get all meals', function(done) {
 		chai.request(server)
 			.get('/api/session/allmeals')
+			.set('X-Access-Token', token)
 			.end(function(error, result) {
 				result.should.have.status(200);
 				result.should.be.json;
-				result.body.should.be.an('object');
+				result.body.should.be.an('array');
 				done();
 			});
 	});

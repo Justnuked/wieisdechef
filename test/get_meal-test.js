@@ -29,10 +29,11 @@ describe('getmeal API functionalities', function() {
 	it('should successfully get a meal', function(done) {
 		chai.request(server)
 			.get('/api/session/getmeal?id=1')
+			.set('X-Access-Token', token)
 			.end(function(error, result) {
 				result.should.have.status(200);
 				result.should.be.json;
-				result.body.should.be.an('object');
+				result.body.should.be.an('string');
 				done();
 			});
 	});
@@ -40,6 +41,7 @@ describe('getmeal API functionalities', function() {
 	it('should give an error when no id is given', function(done) {
 		chai.request(server)
 			.get('/api/session/getmeal')
+			.set('X-Access-Token', token)
 			.end(function(error, result) {
 				result.should.have.status(404);
 				result.should.be.json;

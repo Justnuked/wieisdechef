@@ -34,6 +34,7 @@ describe('hostmeal API functionalities', function() {
 		}
 		chai.request(server)
 			.post('/api/session/hostmeal')
+			.set('X-Access-Token', token)
 			.send(dinner)
 			.end(function(error, result) {
 				result.should.have.status(404);
@@ -52,6 +53,7 @@ describe('hostmeal API functionalities', function() {
 		}
 		chai.request(server)
 			.post('/api/session/hostmeal')
+			.set('X-Access-Token', token)
 			.send(dinner)
 			.end(function(error, result) {
 				result.should.have.status(404);
@@ -70,6 +72,7 @@ describe('hostmeal API functionalities', function() {
 		}
 		chai.request(server)
 			.post('/api/session/hostmeal')
+			.set('X-Access-Token', token)
 			.send(dinner)
 			.end(function(error, result) {
 				result.should.have.status(404);

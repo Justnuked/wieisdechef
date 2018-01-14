@@ -34,6 +34,7 @@ describe('addmeal API functionalities', function() {
 		}
 		chai.request(server)
 			.post('/api/session/addmeal')
+			.set('X-Access-Token', token)
 			.send(meal)
 			.end(function(error, result) {
 				result.should.have.status(404);
@@ -52,6 +53,7 @@ describe('addmeal API functionalities', function() {
 		}
 		chai.request(server)
 			.post('/api/session/addmeal')
+			.set('X-Access-Token', token)
 			.send(meal)
 			.end(function(error, result) {
 				result.should.have.status(404);
@@ -70,6 +72,7 @@ describe('addmeal API functionalities', function() {
 		}
 		chai.request(server)
 			.post('/api/session/addmeal')
+			.set('X-Access-Token', token)
 			.send(meal)
 			.end(function(error, result) {
 				result.should.have.status(404);
