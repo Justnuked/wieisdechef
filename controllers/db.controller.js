@@ -58,8 +58,16 @@ module.exports = {
 	},
 	
 	showOverview(req, res, next) {
-		res.status(501);
-		res.json({Error: 'not implemented yet'});
+		var query = 'SELECT st.username AS `Kok`, m.name AS `Maaltijd`, date, (COUNT(p.studentId) + 1)  `Hoeveel eters?`, m.Id AS `mealId` FROM `dinners` d JOIN `students` st  ON st.id=d.chefId JOIN `meals` m ON m.id = d.mealId JOIN `participants` p ON p.dinnerId = d.id GROUP BY d.date';
+		db.query(query, function(error, results, field) {
+			if(error) {
+				next(error);
+			} else {
+				res.status(200);
+				res.json(results);
+				res.end();
+			}
+		});
 	},
 	
 	showAllMeals(req, res, next) {
