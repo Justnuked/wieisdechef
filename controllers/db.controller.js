@@ -1,13 +1,5 @@
 var db = require('../config/db');
 
-function executePostQuery(error, results, field) {
-	if(error) {
-		next(error);
-	} else {
-		res.status(200).end();
-	}
-}
-
 module.exports = {
 	
 	addMeal(req, res, next) {
@@ -17,14 +9,26 @@ module.exports = {
 		var image = req.body.image;
 		var description = req.body.description;
 		var query = 'INSERT INTO meals (name, price, maxPeople, image, description) VALUES ("' + name + '", ' + price + ', ' + maxPeople + ', "' + image + '", "' + description + '")';
-		db.query(query, executePostQuery);
+		db.query(query, function(error, result, field) {
+			if(error) {
+				next(error);
+			} else {
+				res.status(200).end();
+			}
+		});
 	},
 	
 	joinMeal(req, res, next) {
 		var studentid = req.body.studentid;
 		var dinnerid = req.body.dinnerid;
 		var querystring = 'INSERT INTO PARTICIPANTS(DINNERID, STUDENTID) VALUES ('+dinnerid+', '+studentid+')';
-		db.query(querystring, executePostQuery);
+		db.query(querystring, function(error, result, field) {
+			if(error) {
+				next(error);
+			} else {
+				res.status(200).end();
+			}
+		});
 	},
 	
 	hostMeal(req, res, next) {
@@ -32,14 +36,26 @@ module.exports = {
 		var mealID = req.body.mealID;
 		var date = req.body.date; //Date in format "YYYY-MM-DD HH:MM:SS"
 		var query = 'INSERT INTO dinners (chefID, mealID, date) VALUES (' + chefID + ', ' + mealID + ', "' + date + '")';
-		db.query(query, executePostQuery);
+		db.query(query, function(error, result, field) {
+			if(error) {
+				next(error);
+			} else {
+				res.status(200).end();
+			}
+		});
 	},
 	
 	leaveMeal(req, res, next) {
 		var studentid = req.body.studentid;
 		var dinnerid = req.body.dinnerid;
 		var querystring = 'DELETE FROM PARTICIPANTS WHERE studentid = ' +studentid+ ' AND dinnerid = ' +dinnerid+';';
-		db.query(querystring, executePostQuery);
+		db.query(querystring, function(error, result, field) {
+			if(error) {
+				next(error);
+			} else {
+				res.status(200).end();
+			}
+		});
 	},
 	
 	//Used like ...session/getmeal?id=1
