@@ -21,7 +21,8 @@ module.exports = {
 	joinMeal(req, res, next) {
 		var studentid = req.body.studentid;
 		var dinnerid = req.body.dinnerid;
-		var querystring = 'INSERT INTO PARTICIPANTS(DINNERID, STUDENTID) VALUES ('+dinnerid+', '+studentid+')';
+		var extras = req.body.extras;
+		var querystring = 'INSERT INTO PARTICIPANTS(DINNERID, STUDENTID, EXTRAS) VALUES ('+dinnerid+', '+studentid+', '+extras+')';
 		db.query(querystring, function(error, result, field) {
 			if(error) {
 				next(error);
