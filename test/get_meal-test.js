@@ -33,7 +33,7 @@ describe('getmeal API functionalities', function() {
 			.end(function(error, result) {
 				result.should.have.status(200);
 				result.should.be.json;
-				result.body.should.be.an('string');
+				result.body.should.be.an('object');
 				done();
 			});
 	});
