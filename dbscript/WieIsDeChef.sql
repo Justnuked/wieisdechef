@@ -6,3 +6,42 @@ ALTER TABLE `dinners` ADD INDEX `FKdinners137286` (`chefId`), ADD CONSTRAINT `FK
 ALTER TABLE `dinners` ADD INDEX `FKdinners735838` (`mealId`), ADD CONSTRAINT `FKdinners735838` FOREIGN KEY (`mealId`) REFERENCES `meals` (`id`);
 ALTER TABLE `participants` ADD INDEX `FKparticipan868862` (`studentId`), ADD CONSTRAINT `FKparticipan868862` FOREIGN KEY (`studentId`) REFERENCES `students` (`id`);
 ALTER TABLE `participants` ADD INDEX `FKparticipan734595` (`dinnerId`), ADD CONSTRAINT `FKparticipan734595` FOREIGN KEY (`dinnerId`) REFERENCES `dinners` (`id`);
+
+--TRIGGERS
+DELIMITER //
+
+DROP TRIGGER IF EXISTS `bi_meals`//
+CREATE TRIGGER `bi_meals`
+BEFORE INSERT ON meals
+FOR EACH ROW
+BEGIN
+
+	IF NEW.`description` = 'undefined' OR NEW.`description` = 'null' THEN
+    SET NEW.`description` = '';
+    END IF;
+    
+    IF NEW.`image` = 'undefined'OR NEW.`image` = 'null' THEN
+    SET NEW.`image` = '';
+    END IF;
+
+    IF NEW.`name` = 'undefined' OR NEW.`name` = 'null' OR NEW.`name` = '' THEN
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = "Name can't be null";
+    END IF;
+	
+END //
+
+
+DROP TRIGGER IF EXISTS `bi_dinners` //
+CREATE TRIGGER `bi_dinners`
+BEFORE INSERT ON `dinners`
+FOR EACH ROW
+BEGIN
+
+IF NEW.`date` = '0000-00-00 00:00:00'
+THEN 
+SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = "Date can't be 0000-00-00 00:00:00";
+END IF;
+
+END //
+
+DELIMITER ;
