@@ -29,10 +29,6 @@ module.exports = {
 		}
 	},
 	
-	logintest(req,res,next){
-		res.status(200);
-	},
-	
 	register(req, res, next) {
 		
 		var userName = req.body.username;
