@@ -1,5 +1,7 @@
 var dbController = require('../controllers/db.controller');
 var db = require('../config/db');
+var jwt = require('../controllers/authentication.js');
+
 
 module.exports = {
 	
@@ -10,14 +12,13 @@ module.exports = {
 		console.log(password);	
 		
 		if(userName != null && password != null){
-		var querystring = 'SELECT COUNT(username) FROM students WHERE username = "'+ userName + '" AND password =  "' + password + '" ';
+		var querystring = 'SELECT COUNT(username) AS username FROM students WHERE username = "'+ userName + '" AND password =  "' + password + '" ';
 		db.query(querystring, function(error, results, field) {
 			if(error) {
 				next(error);
 			} else {
-				
-			if(results == 1){
-				res.status(200);
+			if(results[0].username == 1){
+				res.status(200).json({"token" : jwt.encodeToken(userName), "username" : userName});
 			} else{
 				res.status(401);
 			}
@@ -26,6 +27,10 @@ module.exports = {
 			}
 		});
 		}
+	},
+	
+	logintest(req,res,next){
+		res.status(200);
 	},
 	
 	register(req, res, next) {

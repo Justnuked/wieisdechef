@@ -5,6 +5,7 @@ var logger = require('morgan');
 var routes = require('./api/routes');
 var account = require('./api/account');
 var favicon = require('serve-favicon');
+var jwt = require('./controllers/authentication.js');
 
 var app = express();
 
@@ -21,6 +22,25 @@ app.use('*', function(req, res, next){
 	res.contentType('application/json');
 	next();
 });
+
+app.use('/api/session/*', function(req, res, next){
+	
+	console.log("VALIDATE TOKEN")
+
+    var token = (req.header('X-Access-Token')) || '';
+
+    jwt.decodeToken(token, function (err, payload) {
+        if (err) {
+            console.log('Error handler: ' + err.message);
+            res.status((err.status || 401 )).json({error: new Error("Not authorised").message});
+			res.end();
+        } else {
+            next();
+        }
+    });
+});
+
+
 
 app.use('/api/session', routes);
 app.use('/api', account);
