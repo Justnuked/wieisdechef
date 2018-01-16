@@ -5,6 +5,10 @@ var jwt = require('../controllers/authentication.js');
 
 module.exports = {
 	
+	/**
+	@author Thom
+	@Description logs the user in and returns the JWT token
+	**/
 	login(req, res, next) {
 		var userName = req.body.username;
 		var password = req.body.password;
@@ -29,6 +33,10 @@ module.exports = {
 		}
 	},
 	
+	/**
+	@author Thom
+	@Description registers a new user in the db
+	**/
 	register(req, res, next) {
 		
 		var userName = req.body.username;
