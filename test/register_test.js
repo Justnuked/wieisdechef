@@ -10,27 +10,30 @@ describe('register api functions', function() {
 	
 	
 	it('should register', function(done) {
-		let login = {
-			username : 'Henk',
-			password : '123'
-		}
+		let user = {'username' : 'henk',
+					'password': '123'};
 		
 		chai.request(server)
-			.get('/api/session/overview')
-			.set('X-Access-Token', token)
+			.post('/api/register')
+			.send(user)
 			.end(function(error, result) {
 				result.should.have.status(200);
 				result.should.be.json;
-				result.body.should.be.an('array');
+				result.body.should.be.an('object');
 				done();
 			});
 	});
 	
-		it('should not respond when I dont have a token', function(done) {
+	
+	it('should not register the same name twice', function(done) {
+		let user = {'username' : 'henk',
+					'password': '123'};
+		
 		chai.request(server)
-			.get('/api/session/overview')
+			.post('/api/register')
+			.send(user)
 			.end(function(error, result) {
-				result.should.have.status(401);
+				result.should.have.status(404);
 				result.should.be.json;
 				result.body.should.be.an('object');
 				result.body.should.have.property('error');
