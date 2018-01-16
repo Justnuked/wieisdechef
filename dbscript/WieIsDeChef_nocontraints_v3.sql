@@ -3,8 +3,6 @@ CREATE TABLE `meals` (`id` int(255) NOT NULL AUTO_INCREMENT, `name` varchar(255)
 CREATE TABLE `dinners` (`id` int(255) NOT NULL AUTO_INCREMENT, `chefId` int(255) NOT NULL, `mealId` int(255) NOT NULL, `date` datetime NOT NULL, PRIMARY KEY (`id`));
 CREATE TABLE `participants` (`id` int(255) NOT NULL AUTO_INCREMENT, `dinnerId` int(255) NOT NULL, `studentId` int(255) NOT NULL, `extras` int(10) DEFAULT 0 NOT NULL, PRIMARY KEY (`id`));
 
---TRIGGERS
-
 DELIMITER //
 
 DROP TRIGGER IF EXISTS `bi_meals`//
