@@ -30,7 +30,8 @@ describe('joinmeal API funtionalities', function() {
 	it('should not participate in dinner without dinnerID', function(done) {
 		let participate = {
 			dinnerid: null,
-			studentid: 1
+			studentid: 1,
+			extras: 0
 		}
 		chai.request(server)
 			.post('/api/session/joinmeal')
@@ -48,7 +49,8 @@ describe('joinmeal API funtionalities', function() {
 	it('should not participate in dinner without studentid', function(done) {
 		let participate = {
 			dinnerid: 1,
-			studentid: null
+			studentid: null,
+			extras: 0
 		}
 		chai.request(server)
 			.post('/api/session/joinmeal')
