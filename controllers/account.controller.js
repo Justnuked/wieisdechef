@@ -43,7 +43,7 @@ module.exports = {
 		var password = req.body.password;
 
 		if(userName != null && password != null){
-		var querystring = 'INSERT INTO STUDENTS(username, password) VALUES (?, ?)';
+		var querystring = 'INSERT INTO students(username, password) VALUES (?, ?)';
 		db.query(querystring, [userName, password], function(error, results, field) {
 			if(error) {
 				next(error);
