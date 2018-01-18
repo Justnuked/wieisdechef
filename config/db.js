@@ -3,10 +3,10 @@
 var mysql = require('mysql');
 
 const connectionSettings = {
-	host: 'localhost',
-	user: 'sjef',
-	password: 'dev',
-	database: 'wieisdechef'
+	host: '146.185.167.139',
+	user: 'thom',
+	password: 'te8jAceqy6tiLcGw',
+	database: 'thom_wieisdechef'
 };
 
 const reconnectTimeout = 1000;
