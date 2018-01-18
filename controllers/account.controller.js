@@ -16,8 +16,8 @@ module.exports = {
 		console.log(password);	
 		
 		if(userName != null && password != null){
-		var querystring = 'SELECT COUNT(username) AS username FROM students WHERE username = "'+ userName + '" AND password =  "' + password + '" ';
-		db.query(querystring, function(error, results, field) {
+		var querystring = 'SELECT COUNT(username) AS username FROM students WHERE username = ? AND password = ?';
+		db.query(querystring, [userName, password], function(error, results, field) {
 			if(error) {
 				next(error);
 			} else {
@@ -43,8 +43,8 @@ module.exports = {
 		var password = req.body.password;
 
 		if(userName != null && password != null){
-		var querystring = 'INSERT INTO STUDENTS(username, password) VALUES ("'+ userName +'", "'+ password +'")';
-		db.query(querystring, function(error, results, field) {
+		var querystring = 'INSERT INTO STUDENTS(username, password) VALUES (?, ?)';
+		db.query(querystring, [userName, password], function(error, results, field) {
 			if(error) {
 				next(error);
 			} else {
