@@ -12,8 +12,8 @@ module.exports = {
 		var maxPeople = req.body.maxPeople;
 		var image = req.body.image;
 		var description = req.body.description;
-		var query = 'INSERT INTO meals (name, price, maxPeople, image, description) VALUES ("' + name + '", ' + price + ', ' + maxPeople + ', "' + image + '", "' + description + '")';
-		db.query(query, function(error, result, field) {
+		var query = 'INSERT INTO meals (name, price, maxPeople, image, description) VALUES (?, ?, ?, ?, ?)';
+		db.query(query, [name, price, maxPeople, image, description], function(error, result, field) {
 			if(error) {
 				next(error);
 			} else {
@@ -30,8 +30,8 @@ module.exports = {
 		var studentid = req.body.studentid;
 		var dinnerid = req.body.dinnerid;
 		var extras = req.body.extras;
-		var querystring = 'INSERT INTO PARTICIPANTS(DINNERID, STUDENTID, EXTRAS) VALUES ('+dinnerid+', '+studentid+', '+extras+')';
-		db.query(querystring, function(error, result, field) {
+		var querystring = 'INSERT INTO PARTICIPANTS(DINNERID, STUDENTID, EXTRAS) VALUES (?, ?, ?)';
+		db.query(querystring,[dinnerid, studentid, extras], function(error, result, field) {
 			if(error) {
 				next(error);
 			} else {
@@ -48,8 +48,8 @@ module.exports = {
 		var chefID = req.body.chefID;
 		var mealID = req.body.mealID;
 		var date = req.body.date; //Date in format "YYYY-MM-DD HH:MM:SS"
-		var query = 'INSERT INTO dinners (chefID, mealID, date) VALUES (' + chefID + ', ' + mealID + ', "' + date + '")';
-		db.query(query, function(error, result, field) {
+		var query = 'INSERT INTO dinners (chefID, mealID, date) VALUES (?, ?, ?)';
+		db.query(query, [chefID, mealID, date], function(error, result, field) {
 			if(error) {
 				next(error);
 			} else {
@@ -65,8 +65,8 @@ module.exports = {
 	leaveMeal(req, res, next) {
 		var studentid = req.body.studentid;
 		var dinnerid = req.body.dinnerid;
-		var querystring = 'DELETE FROM PARTICIPANTS WHERE studentid = ' +studentid+ ' AND dinnerid = ' +dinnerid+';';
-		db.query(querystring, function(error, result, field) {
+		var querystring = 'DELETE FROM PARTICIPANTS WHERE studentid = ? AND dinnerid = ?;';
+		db.query(querystring, [studentid, dinnerid], function(error, result, field) {
 			if(error) {
 				next(error);
 			} else {
@@ -81,8 +81,8 @@ module.exports = {
 	*/
 	getMeal(req, res, next) {
 		var mealID = req.query.id;
-		var query = 'SELECT * FROM meals WHERE id = ' + mealID;
-		db.query(query, function(error, results, field) {
+		var query = 'SELECT * FROM meals WHERE id = ?';
+		db.query(query, mealID,  function(error, results, field) {
 			if(error) {
 				next(error);
 			} else {
@@ -98,7 +98,7 @@ module.exports = {
 	* @Description Returns an overview containing: The chef who's cooking, what they're cooking on which date, and how many people are joining.
 	*/
 	showOverview(req, res, next) {
-		var query = 'SELECT st.username AS `Kok`, m.name AS `Maaltijd`, date, (COUNT(p.studentId) + 1 + p.extras)  `Hoeveel eters?`, m.Id AS `mealId` FROM `dinners` d JOIN `students` st  ON st.id=d.chefId JOIN `meals` m ON m.id = d.mealId JOIN `participants` p ON p.dinnerId = d.id GROUP BY d.date';
+		var query = 'SELECT s.username AS "Chef", m.name AS "Meal", (SUM(p.extras) + COUNT(p.studentId) + 1) AS "Participants", m.maxPeople AS "Max Participants", d.date AS "Date", d.mealId AS "MealID" FROM `students` s, `meals` m, `participants` p, `dinners` d WHERE s.id = d.chefId AND m.id = d.mealId AND d.id = p.dinnerId GROUP BY p.dinnerId';
 		db.query(query, function(error, results, field) {
 			if(error) {
 				next(error);
