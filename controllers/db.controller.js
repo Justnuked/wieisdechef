@@ -30,7 +30,7 @@ module.exports = {
 		var studentid = req.body.studentid;
 		var dinnerid = req.body.dinnerid;
 		var extras = req.body.extras;
-		var querystring = 'INSERT INTO PARTICIPANTS(DINNERID, STUDENTID, EXTRAS) VALUES (?, ?, ?)';
+		var querystring = 'INSERT INTO participants (dinnerId, studentId, extras) VALUES (?, ?, ?)';
 		db.query(querystring,[dinnerid, studentid, extras], function(error, result, field) {
 			if(error) {
 				next(error);
@@ -65,7 +65,7 @@ module.exports = {
 	leaveMeal(req, res, next) {
 		var studentid = req.body.studentid;
 		var dinnerid = req.body.dinnerid;
-		var querystring = 'DELETE FROM PARTICIPANTS WHERE studentid = ? AND dinnerid = ?;';
+		var querystring = 'DELETE FROM participants WHERE studentId = ? AND dinnerId = ?;';
 		db.query(querystring, [studentid, dinnerid], function(error, result, field) {
 			if(error) {
 				next(error);
