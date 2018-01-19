@@ -48,14 +48,12 @@ module.exports = {
 			if(error) {
 				next(error);
 			} else {
-			res.status(200);
-			res.json({Message: 'Account created. Happy eating!'});
+			res.status(200).json({Message: 'Account created. Happy eating!'});
 			res.end();
 			}
 		});
 		} else{
-			res.status(502);
-			res.json({error: 'Something went wrong'})
+			res.status(502).json({error: 'Something went wrong'})
 			res.end();
 		}
 	}
