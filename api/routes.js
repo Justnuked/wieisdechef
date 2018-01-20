@@ -58,6 +58,12 @@ routes.get('/allmeals', dbController.showAllMeals);
 
 /**
  * @author: Kevin
+ * @description: Checks if the student has joined a certain dinner
+ */
+routes.get('/checkparticipants', dbController.checkParticipants);
+
+/**
+ * @author: Kevin
  * @description: Returns a 400 error for all non existing endpoints
  */
 routes.get('*', function(req, res, next) {

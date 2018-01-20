@@ -130,6 +130,25 @@ module.exports = {
 	},
 	
 	/**
+	* @author Kevin
+	* @Description Gets the amount of time a user has joined a certain dinner. 
+	*/
+	checkParticipants(req, res, next) {
+		var studentId = req.query.studentid;
+		var dinnerId = req.query.dinnerid;
+		var query = "SELECT COUNT(*) FROM participants WHERE studentId = ? AND dinnerId = ?";
+		db.query(query, [studentId, dinnerId], function(error, results, field) {
+			if(error) {
+				next(error);
+			} else {
+				res.status(200);
+				res.json(results[0]);
+				res.end();
+			}
+		});
+	},
+	
+	/**
 	* @author Thom
 	* @Description Returns an overview containing: The chef who's cooking, what they're cooking on which date, and how many people are joining.
 	*/
