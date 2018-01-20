@@ -34,6 +34,18 @@ routes.get('/getmeal', dbController.getMeal);
 
 /**
  * @author: Kevin
+ * @description: Return a single dinner
+ */
+routes.get('/getdinner', dbController.getDinner);
+
+/**
+ * @author: Kevin
+ * @description: Return a more detailed dinner
+ */
+routes.get('/getdetaileddinner', dbController.getDetailedDinner);
+
+/**
+ * @author: Kevin
  * @description: An overview on all data
  */
 routes.get('/overview', dbController.showOverview);

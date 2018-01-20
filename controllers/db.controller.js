@@ -94,6 +94,42 @@ module.exports = {
 	},
 	
 	/**
+	* @author Kevin
+	* @Description Get dinner by dinner ID. 
+	*/
+	getDinner(req, res, next) {
+		var dinnerID = req.query.id;
+		var query = 'SELECT * FROM dinners WHERE id = ?';
+		db.query(query, dinnerID, function(error, results, field) {
+			if (error) {
+				next(error);
+			} else {
+				res.status(200);
+				res.json(results[0]);
+				res.end();
+			}
+		});
+	},
+	
+	/**
+	* @author Kevin
+	* @Description Gets a single dinner in the same format as overview, but by meal id. 
+	*/
+	getDetailedDinner(req, res, next) {
+		var dinnerID = req.query.id;
+		var query = 'SELECT s.username AS "Chef", m.name AS "Meal", (SUM(p.extras) + COUNT(p.studentId) + 1) AS "Participants", m.maxPeople AS "Max Participants", d.date AS "Date", d.mealId AS "MealID" FROM `students` s, `meals` m, `participants` p, `dinners` d WHERE s.id = d.chefId AND m.id = d.mealId AND d.id = p.dinnerId AND d.id = ? GROUP BY p.dinnerId';
+		db.query(query, dinnerID, function(error, results, field) {
+			if (error) {
+				next(error);
+			} else {
+				res.status(200);
+				res.json(results[0]);
+				res.end();
+			}
+		});
+	},
+	
+	/**
 	* @author Thom
 	* @Description Returns an overview containing: The chef who's cooking, what they're cooking on which date, and how many people are joining.
 	*/
