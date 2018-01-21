@@ -168,6 +168,23 @@ module.exports = {
 	},
 	
 	/**
+	 * @author: Kevin
+	 * @description: Find dinner using the date and studentid
+	 */
+	findDinnerByDate(req, res, next) {
+		var chefId = req.query.chefid;
+		var date = req.query.date;
+		var query = "SELECT * FROM dinners WHERE chefId = ? AND date = ?";
+		db.query(query, [chefId, date], function(error, results, field) {
+			if(error) {
+				next(error);
+			} else {
+				res.status(200).json(results[0]).end();
+			}
+		});
+	},
+	
+	/**
 	* @author Thom
 	* @Description Returns an overview containing: The chef who's cooking, what they're cooking on which date, and how many people are joining.
 	*/

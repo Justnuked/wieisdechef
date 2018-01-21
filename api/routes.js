@@ -70,6 +70,12 @@ routes.get('/checkparticipants', dbController.checkParticipants);
 
 /**
  * @author: Kevin
+ * @description: Find dinner using the date and studentid
+ */
+routes.get('/finddinnerbydate', dbController.findDinnerByDate);
+
+/**
+ * @author: Kevin
  * @description: Returns a 400 error for all non existing endpoints
  */
 routes.get('*', function(req, res, next) {
