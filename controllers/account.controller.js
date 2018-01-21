@@ -16,13 +16,13 @@ module.exports = {
 		console.log(password);	
 		
 		if(userName != null && password != null){
-		var querystring = 'SELECT COUNT(username) AS username FROM students WHERE username = ? AND password = ?';
+		var querystring = 'SELECT id, COUNT(username) AS username FROM students WHERE username = ? AND password = ?';
 		db.query(querystring, [userName, password], function(error, results, field) {
 			if(error) {
 				next(error);
 			} else {
 			if(results[0].username == 1){
-				res.status(200).json({"token" : jwt.encodeToken(userName), "username" : userName});
+				res.status(200).json({"token" : jwt.encodeToken(userName), "username" : userName, "id": results[0].id});
 			} else{
 				res.status(401);
 			}
