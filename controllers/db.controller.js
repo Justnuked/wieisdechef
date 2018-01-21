@@ -130,6 +130,25 @@ module.exports = {
 	},
 	
 	/**
+	* @author Casper
+	* @Description Get dinners by userid.
+	*/
+	getDinnersByUser(req, res, next) {
+		var userId = req.body.id;
+		var query = 'SELECT dinnerId FROM participants WHERE studentId = ?';
+		db.query(query, userId, function(error, results, field) {
+			if (error) {
+				next(error);
+			} else {
+				res.status(200);
+				res.json(results[0]);
+				res.end();
+			}
+		});
+	},
+	
+	
+	/**
 	* @author Kevin
 	* @Description Gets the amount of time a user has joined a certain dinner. 
 	*/

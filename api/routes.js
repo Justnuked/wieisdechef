@@ -57,6 +57,12 @@ routes.get('/overview', dbController.showOverview);
 routes.get('/allmeals', dbController.showAllMeals);
 
 /**
+ * @author Casper
+ * @Description Get meals where the user has signed up for.
+ */
+routes.post('/getdinnersbyuser', dbController.getDinnersByUser);
+ 
+/**
  * @author: Kevin
  * @description: Checks if the student has joined a certain dinner
  */
