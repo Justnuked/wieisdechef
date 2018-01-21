@@ -189,7 +189,7 @@ module.exports = {
 	* @Description Returns an overview containing: The chef who's cooking, what they're cooking on which date, and how many people are joining.
 	*/
 	showOverview(req, res, next) {
-		var query = 'SELECT d.id AS "DinnerID", s.username AS "Chef", m.name AS "Meal", (SUM(p.extras) + COUNT(p.studentId) + 1) AS "Participants", m.maxPeople AS "Max Participants", d.date AS "Date", d.mealId AS "MealID" FROM `students` s, `meals` m, `participants` p, `dinners` d WHERE s.id = d.chefId AND m.id = d.mealId AND d.id = p.dinnerId GROUP BY p.dinnerId';
+		var query = 'SELECT d.id AS "DinnerID", s.username AS "Chef", m.name AS "Meal", (SUM(p.extras) + COUNT(p.studentId)) AS "Participants", m.maxPeople AS "Max Participants", d.date AS "Date", d.mealId AS "MealID" FROM `students` s, `meals` m, `participants` p, `dinners` d WHERE s.id = d.chefId AND m.id = d.mealId AND d.id = p.dinnerId GROUP BY p.dinnerId';
 		db.query(query, function(error, results, field) {
 			if(error) {
 				next(error);
