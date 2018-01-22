@@ -237,7 +237,7 @@ module.exports = {
 			} else {
 				var meals = [];
 				for (var result in results) {
-					meals.push({name: results[result].name, price: results[result].price, maxPeople: results[result].maxPeople, image: null, description: results[result].description});
+					meals.push({id: results[result].id, name: results[result].name, price: results[result].price, maxPeople: results[result].maxPeople, image: null, description: results[result].description});
 				}
 				res.status(200);
 				res.json(meals); 
