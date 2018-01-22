@@ -223,5 +223,26 @@ module.exports = {
 				res.end();
 			}
 		});
+	},
+	
+	/**
+	 * @author: Kevin
+	 * @description: Show all meals, but without images.
+	 */
+	showAllMealsSimple(req, res, next) {
+		var query = 'SELECT * FROM meals';
+		db.query(query, function(error, results, field) {
+			if(error) {
+				next(error);
+			} else {
+				var meals = [];
+				for (var result in results) {
+					meals.push({name: results[result].name, price: results[result].price, maxPeople: results[result].maxPeople, image: null, description: results[result].description});
+				}
+				res.status(200);
+				res.json(meals); 
+				res.end();
+			}
+		});
 	}
 }

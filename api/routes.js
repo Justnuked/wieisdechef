@@ -57,6 +57,12 @@ routes.get('/overview', dbController.showOverview);
 routes.get('/allmeals', dbController.showAllMeals);
 
 /**
+ * @author: Kevin
+ * @description: Show all meals, but without images.
+ */
+routes.get('/allmealssimple', dbController.showAllMealsSimple);
+
+/**
  * @author Casper
  * @Description Get meals where the user has signed up for.
  */
