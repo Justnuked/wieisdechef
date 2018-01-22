@@ -88,7 +88,7 @@ module.exports = {
 			} else {
 				var meal = results[0];
 				res.status(200);
-				res.json({id: meal.id, name: meal.name, price: meal.price, maxPeople: meal.maxPeople, description: meal.description, image: meal.image.toString('base64')}); //Returns the first item in the array.
+				res.json({id: meal.id, name: meal.name, price: meal.price, maxPeople: meal.maxPeople, description: meal.description, image: meal.image.toString()}); //Returns the first item in the array.
 				res.end();
 			}
 		});
