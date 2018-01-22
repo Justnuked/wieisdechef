@@ -87,8 +87,14 @@ module.exports = {
 				next(error);
 			} else {
 				var meal = results[0];
+				var result;
+				if(meal.image == null) {
+					result = {id: meal.id, name: meal.name, price: meal.price, maxPeople: meal.maxPeople, description: meal.description, image: null};
+				} else {
+					result = {id: meal.id, name: meal.name, price: meal.price, maxPeople: meal.maxPeople, description: meal.description, image: meal.image.toString()};
+				}
 				res.status(200);
-				res.json({id: meal.id, name: meal.name, price: meal.price, maxPeople: meal.maxPeople, description: meal.description, image: meal.image.toString()}); //Returns the first item in the array.
+				res.json(result); //Returns the first item in the array.
 				res.end();
 			}
 		});
