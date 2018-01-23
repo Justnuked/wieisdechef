@@ -58,7 +58,7 @@ module.exports = {
 					if(error) {
 						next(error);
 					} else {
-						res.status(200).json(results).end();
+						res.status(200).json(results[0]).end();
 					}
 				});
 			}
