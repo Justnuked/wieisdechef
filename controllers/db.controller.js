@@ -42,18 +42,25 @@ module.exports = {
 	
 	/**
 	* @author Kevin
-	* @Description Student hosts a meal. Requires the meal to be in the database before dinner can be hosted. Date is also mandatory.
+	* @Description Student hosts a meal. Requires the meal to be in the database before dinner can be hosted. Date is also mandatory. Returns DinnerID of new dinner. 
 	*/
 	hostMeal(req, res, next) {
 		var chefID = req.body.chefID;
 		var mealID = req.body.mealID;
 		var date = req.body.date; //Date in format "YYYY-MM-DD HH:MM:SS"
 		var query = 'INSERT INTO dinners (chefID, mealID, date) VALUES (?, ?, ?)';
-		db.query(query, [chefID, mealID, date], function(error, result, field) {
+		db.query(query, [chefID, mealID, date], function(error, results, field) {
 			if(error) {
 				next(error);
 			} else {
-				res.status(200).json({status: "query successful"}).end();
+				query = 'SELECT LAST_INSERT_ID() AS dinnerid';
+				db.query(query, [chefID, mealID, date], function(error, results, field) {
+					if(error) {
+						next(error);
+					} else {
+						res.status(200).json(results).end();
+					}
+				});
 			}
 		});
 	},
